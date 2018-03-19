@@ -1,7 +1,7 @@
 {
   "name": "prime-solo-base-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,5 +25,16 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.1.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heimlouis/Mad_Money_Solo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/heimlouis/Mad_Money_Solo/issues"
+  },
+  "homepage": "https://github.com/heimlouis/Mad_Money_Solo#readme"
 }

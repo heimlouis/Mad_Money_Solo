@@ -7,7 +7,7 @@ const sessionConfig = require('./modules/session-middleware');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-const madMoneyRouter=require('./routers/madMoney-router');
+const madMoneyRouter=require('./routes/madMoney.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
