@@ -7,10 +7,14 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
   console.log('myApp -- config')
   $routeProvider
     .when('/', {
-      redirectTo: 'home'
+      redirectTo: 'login'
     })
-    .when('/home', {
+    .when('/accountOverview', {
       templateUrl: '/views/templates/home.html',
+      controller: 'LoginController as vm',
+    })
+    .when('/login', {
+      templateUrl: '/views/templates/login.html',
       controller: 'LoginController as vm',
     })
     .when('/register', {
