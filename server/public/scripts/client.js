@@ -30,14 +30,18 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         }
       }
     })
-    .when('/info', {
-      templateUrl: '/views/templates/info.html',
+    .when('/technologies', {
+      templateUrl: '/views/templates/technologies.html',
       controller: 'InfoController as vm',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
         }
       }
+    })
+    .when('/enterTransaction', {
+      templateUrl: '/views/templates/enterTransaction.html',
+      controller: 'LoginController as vm'
     })
     .otherwise({
       template: '<h1>404</h1>'
