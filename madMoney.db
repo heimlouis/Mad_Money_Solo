@@ -1,0 +1,65 @@
+---------------------
+--- CREATE TABLES ---
+---------------------
+
+------- USERS -------
+BEGIN;
+create table users(
+id SERIAL PRIMARY KEY,
+username VARCHAR(20)NOT NULL,
+password VARCHAR(200)NOT NULL,
+email VARCHAR(200),
+phone_number INT,
+account_admin BOOLEAN
+)
+--SELECT * FROM users
+--ROLLBACK
+--COMMIT
+
+------- USER_ACCOUNT -------
+BEGIN;
+create table user_account(
+user_id INT REFERENCES users(user_id),
+account_id INT REFERENCES accounts(account_id)
+)
+--SELECT * FROM user_account
+--ROLLBACK
+--COMMIT
+
+-------- ACCOUNTS --------
+BEGIN;
+create table accounts(
+account_id SERIAL PRIMARY KEY,
+account_name VARCHAR(50),
+budget_amount INT
+)
+--SELECT * FROM accounts
+--ROLLBACK
+--COMMIT
+
+-------- REGISTER --------
+BEGIN;
+create table register(
+register_id SERIAL PRIMARY KEY,
+account_id INT REFERENCES accounts(account_id),
+category VARCHAR(30),
+amount INT,
+date TIMESTAMP,
+transaction_title VARCHAR(50),
+description VARCHAR(140),
+updated BOOLEAN,
+deleted BOOLEAN
+)
+--SELECT * FROM register
+--ROLLBACK
+--COMMIT
+
+------ TECHNOLOGIES ------
+BEGIN;
+create table technologies(
+id SERIAL PRIMARY KEY,
+tech VARCHAR
+)
+--SELECT * FROM technologies
+--ROLLBACK
+--COMMIT

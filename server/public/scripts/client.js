@@ -9,8 +9,24 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     .when('/', {
       redirectTo: 'login'
     })
+    .when('/enterTransaction', {
+      templateUrl: '/views/templates/enterTransaction.html',
+      controller: 'EnterTransactionController as vm'
+    })
+    .when('/transactionHistory', {
+      templateUrl: '/views/templates/transactionHistory.html',
+      controller: 'EnterTransactionController as vm'
+    })
+    .when('/reporting', {
+      templateUrl: '/views/templates/reporting.html',
+      controller: 'EnterTransactionController as vm'
+    })    
+    .when('/technologies', {
+      templateUrl: '/views/templates/technologies.html',
+      controller: 'EnterTransactionController as vm'
+    })
     .when('/accountOverview', {
-      templateUrl: '/views/templates/home.html',
+      templateUrl: '/views/templates/accountOverview.html',
       controller: 'LoginController as vm',
     })
     .when('/login', {
@@ -29,19 +45,6 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
           return UserService.getuser();
         }
       }
-    })
-    .when('/technologies', {
-      templateUrl: '/views/templates/technologies.html',
-      controller: 'InfoController as vm',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
-        }
-      }
-    })
-    .when('/enterTransaction', {
-      templateUrl: '/views/templates/enterTransaction.html',
-      controller: 'LoginController as vm'
     })
     .otherwise({
       template: '<h1>404</h1>'

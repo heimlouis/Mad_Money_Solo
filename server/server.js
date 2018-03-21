@@ -7,7 +7,7 @@ const sessionConfig = require('./modules/session-middleware');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-const madMoneyRouter=require('./routes/madMoney.router');
+const madMoneyRouter=require('./routers/madMoney-router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -22,7 +22,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/madMoney', madMoneyRouter);
+app.use('/transactions', madMoneyRouter);
 
 // Serve static files
 app.use(express.static('server/public'));

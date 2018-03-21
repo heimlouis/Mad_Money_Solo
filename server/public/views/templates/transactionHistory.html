@@ -1,6 +1,17 @@
-<div ng-include="'views/partials/nav.html'"></div>
+<h1>Transaction History</h1>
 <div class="container">
-  <p>
-      Add trasaction history here
-  </p>
+    <table class="transactionHistoryClass" ng-repeat="transaction in vm.transactionHistory.list">
+      <thead>
+        <th>Transaction Title</th>
+        <th>Transaction Date</th>
+        <th>Transaction Amount</th>
+      </thead>
+        <tbody>
+          <tr>
+            <td>{{transaction.transaction_title}}</td>
+            <td>{{transaction.date}}</td>
+            <td>{{transaction.amount}}</td>
+          </tr>
+        </tbody>
+    </table>
 </div>
