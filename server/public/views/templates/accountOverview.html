@@ -1,5 +1,9 @@
 <div class="container">
   <p>
-    In Account Overview
+    <h2 ng-repeat="account in vm.accountOverview.list">Account Name: {{account.account_name}}</h2>
+    <h4 ng-repeat="account in vm.accountOverview.list">Budget Balance Remaining: {{account.budget_amount | currency}}</h4>
+    <button href="#!enterTransaction">Enter Transaction</button>
+    <!-- <md-button ng-href="#!enterTransaction">Enter Transaction</md-button> -->
+        <a class="button icon-right ion-plus-round" href="#!enterTransaction"></a>
   </p>
 </div>

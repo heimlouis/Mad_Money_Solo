@@ -1,5 +1,5 @@
-myApp.controller('EnterTransactionController', ['UserService', function(UserService) {
-    console.log('EnterTransactionController created');
+myApp.controller('TransactionHistoryController', ['UserService', function(UserService) {
+    console.log('TransactionHistoryController created');
     var self = this;
     self.userService = UserService;
     self.userObject = UserService.userObject;

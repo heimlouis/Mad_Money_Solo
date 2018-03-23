@@ -1,17 +1,19 @@
-<h1>Transaction History</h1>
 <div class="container">
-    <table class="transactionHistoryClass" ng-repeat="transaction in vm.transactionHistory.list">
-      <thead>
-        <th>Transaction Title</th>
-        <th>Transaction Date</th>
-        <th>Transaction Amount</th>
-      </thead>
-        <tbody>
-          <tr>
-            <td>{{transaction.transaction_title}}</td>
-            <td>{{transaction.date}}</td>
-            <td>{{transaction.amount}}</td>
-          </tr>
-        </tbody>
-    </table>
+  <h1>Transaction History</h1>
+  <div class="container">
+      <table class="table table-striped">
+        <thead>
+          <th>Transaction Title</th>
+          <th>Transaction Date</th>
+          <th>Transaction Amount</th>
+          <tbody>
+            <tr ng-repeat="transaction in vm.transactionHistory.list">
+              <td>{{transaction.transaction_title}}</td>
+              <td>{{transaction.date | date: format: short}}</td>
+              <td>{{transaction.amount | currency}}</td>
+            </tr>
+          </tbody>
+        </thead>
+      </table>
+  </div>
 </div>

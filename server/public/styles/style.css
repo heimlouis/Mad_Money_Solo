@@ -54,6 +54,10 @@ body, html {
   border-radius: 0px;
 }
 
+.table-hover {
+
+}
+
 ul {
   list-style-type: none;
   margin: 0;
