@@ -5,6 +5,17 @@ const encryptLib = require('../modules/encryption');
 const Person = require('../models/Person');
 const userStrategy = require('../strategies/sql.localstrategy');
 
+// Handles Ajax request for user information if user is authenticated
+router.get('/', (req, res) => {
+    // check if logged in
+    if (req.isAuthenticated()) {
+      // send back user object from database
+      res.send(req.user);
+    } else {
+      // failure best handled on the server. do redirect here.
+      res.sendStatus(403);
+    }
+  });
 
 //get transaction
 router.get('/transaction', function(request, response){
@@ -23,10 +34,10 @@ router.get('/transaction', function(request, response){
  router.get('/account/:userName', function(request, response){
     const userName = request.params.userName;
     // console.log('******* this is the usernme to get accounts *******', userName);
-    const sqlText = `SELECT distinct A.account_name, (select SUM(amount) - budget_amount from accounts) as budget_amount FROM accounts AS A
-                    JOIN USERS AS U
+    const sqlText = `SELECT DISTINCT A.account_name, (SELECT DISTINCT budget_amount FROM accounts) - (SELECT SUM(amount) FROM register) AS remaining_balance FROM accounts AS A
+                    JOIN users AS U
                     ON A.user_id = U.id 
-                    JOIN REGISTER AS R
+                    JOIN register AS R
                     ON R.account_id = A.account_id
                     WHERE U.username=$1
                     group by account_name`

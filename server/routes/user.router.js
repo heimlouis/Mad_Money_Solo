@@ -29,7 +29,11 @@ router.post('/register', (req, res, next) => {
     password: encryptLib.encryptPassword(req.body.password)
   };
   console.log('new user:', saveUser);
-  pool.query('INSERT INTO users (username, password, phone, email) VALUES ($1, $2, $3, $4) RETURNING id',
+  //holding place if phone and email are used in the future
+  // pool.query('INSERT INTO users (username, password, phone_number, email) VALUES ($1, $2, $3, $4) RETURNING id',
+  pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
+  //holding place if phone and email are used in the future
+  // [saveUser.username, saveUser.password, saveUser.phone_number, saveUser.email], (err, result) => {
     [saveUser.username, saveUser.password], (err, result) => {
       if (err) {
         console.log("Error inserting data: ", err);

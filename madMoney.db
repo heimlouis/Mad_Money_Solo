@@ -8,8 +8,6 @@ create table users(
 id SERIAL PRIMARY KEY,
 username VARCHAR(20)NOT NULL,
 password VARCHAR(200)NOT NULL,
-email VARCHAR(200),
-phone_number INT,
 account_admin BOOLEAN
 )
 --SELECT * FROM users
@@ -17,11 +15,11 @@ account_admin BOOLEAN
 --COMMIT
 
 ------- USER_ACCOUNT -------
-BEGIN;
-create table user_account(
-user_id INT REFERENCES users(user_id),
-account_id INT REFERENCES accounts(account_id)
-)
+--BEGIN;
+--create table user_account(
+--user_id INT REFERENCES users(id),
+--account_id INT REFERENCES accounts(account_id)
+--)
 --SELECT * FROM user_account
 --ROLLBACK
 --COMMIT
@@ -30,8 +28,9 @@ account_id INT REFERENCES accounts(account_id)
 BEGIN;
 create table accounts(
 account_id SERIAL PRIMARY KEY,
+user_id INT REFERENCES users(id),
 account_name VARCHAR(50),
-budget_amount INT
+budget_amount MONEY
 )
 --SELECT * FROM accounts
 --ROLLBACK
@@ -43,8 +42,8 @@ create table register(
 register_id SERIAL PRIMARY KEY,
 account_id INT REFERENCES accounts(account_id),
 category VARCHAR(30),
-amount INT,
-date TIMESTAMP,
+amount MONEY,
+date DATE,
 transaction_title VARCHAR(50),
 description VARCHAR(140),
 updated BOOLEAN,
@@ -53,6 +52,14 @@ deleted BOOLEAN
 --SELECT * FROM register
 --ROLLBACK
 --COMMIT
+--ADD RECORDS TO REGISTER--
+BEGIN;
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Household', 123.45, '03/21/2018', 'Gas Bill', 'Month of Feb fuel expense');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Household', 1230.56, '03/02/2018', 'Cleaners', 'Feb cleaning expense');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Car', 123.45, '03/15/2018', 'Fuel', 'March Holiday Gas Station charges');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Daycare', 1000.00, '03/22/2018', 'Daycare', 'Quinton & Maxwell daycare');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Education', 13750.00, '12/15/2017', 'Prime tuition', 'Full Stack Dev - Continued Education');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Education', 1000.00, '11/01/2017', 'Laptop', 'Macbook');
 
 ------ TECHNOLOGIES ------
 BEGIN;
@@ -63,3 +70,35 @@ tech VARCHAR
 --SELECT * FROM technologies
 --ROLLBACK
 --COMMIT
+
+---------------------------
+------- INSERT INTO -------
+---------------------------
+
+--ADD RECORDS TO REGISTER--
+BEGIN;
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Household', 123.45, '03/21/2018', 'Gas Bill', 'Month of Feb fuel expense');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Household', 1230.56, '03/02/2018', 'Cleaners', 'Feb cleaning expense');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Car', 123.45, '03/15/2018', 'Fuel', 'March Holiday Gas Station charges');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Daycare', 1000.00, '03/22/2018', 'Daycare', 'Quinton & Maxwell daycare');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Education', 13750.00, '12/15/2017', 'Prime tuition', 'Full Stack Dev - Continued Education');
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Education', 1000.00, '11/01/2017', 'Laptop', 'Macbook');
+--SELECT * FROM register
+--ROLLBACK
+--COMMIT
+
+--ADD RECORDS TO ACCOUNTS--
+BEGIN;
+INSERT INTO accounts (user_id, account_name, budget_amount) VALUES (1, 'Louis and Alyssa''s Monthly Budget', 1500.00)
+--SELECT * FROM accounts
+--ROLLBACK
+--COMMIT
+
+--JOIN QUERY
+SELECT DISTINCT A.account_name, (SELECT DISTINCT budget_amount FROM accounts) - (SELECT SUM(amount) FROM register) AS remaining_balance FROM accounts AS A
+JOIN users AS U
+ON A.user_id = U.id 
+JOIN register AS R
+ON R.account_id = A.account_id
+WHERE U.username='h'
+group by account_name

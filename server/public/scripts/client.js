@@ -20,23 +20,48 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     })
     .when('/accountOverview', {
       templateUrl: '/views/templates/accountOverview.html',
-      controller: 'AccountOverviewController as vm'
+      controller: 'AccountOverviewController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
     .when('/enterTransaction', {
       templateUrl: '/views/templates/enterTransaction.html',
-      controller: 'EnterTransactionController as vm'
+      controller: 'EnterTransactionController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
     .when('/transactionHistory', {
       templateUrl: '/views/templates/transactionHistory.html',
-      controller: 'TransactionHistoryController as vm'
+      controller: 'TransactionHistoryController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
     .when('/reporting', {
       templateUrl: '/views/templates/reporting.html',
-      controller: 'ReportingController as vm'
+      controller: 'ReportingController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })    
     .when('/technologies', {
       templateUrl: '/views/templates/technologies.html',
-      controller: 'TechnologiesController as vm'
+      controller: 'TechnologiesController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
     .when('/login', {
       templateUrl: '/views/templates/login.html',
