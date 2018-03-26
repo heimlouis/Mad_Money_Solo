@@ -18,9 +18,15 @@ router.get('/', (req, res) => {
   });
 
 //get transaction
-router.get('/transaction', function(request, response){
-    const sqlText = 'SELECT * FROM register ORDER BY date DESC';
-    pool.query(sqlText)
+router.get('/transaction/:userName', function(request, response){
+    const userName = request.params.userName;
+    const sqlText = `SELECT DISTINCT R.* FROM accounts AS A
+                    JOIN users AS U
+                    ON A.user_id = U.id 
+                    JOIN register AS R
+                    ON R.account_id = A.account_id
+                    WHERE U.username=$1`
+    pool.query(sqlText,[userName])
     .then(function(result){
         response.send(result.rows);
     })
@@ -52,7 +58,58 @@ router.get('/transaction', function(request, response){
  })//end get account
 
  //post transaction
- router.post('/transaction', function(request, response){
- })
+ router.post('/transaction', (request, response)=>{
+     const account_id = request.body.account_id;
+     const date = request.body.date;
+     const category = request.body.category;
+     const amount = request.body.amount;
+     const transaction_title = request.body.transaction_title;
+     const description = request.body.description;
+
+     const saveTransaction = {
+         account_id: request.body.account_id,
+         date: request.body.date,
+         category: request.body.category,
+         amount: request.body.amount,
+         transaction_title: request.body.transaction_title,
+         description: request.body.description
+     };
+     console.log('transaction title:', saveTransaction);
+     pool.query(`INSERT INTO register (account_id, date, category, amount, transaction_title, description) VALUES ($1, $2, $3, $4, $5, $6) returning account_id`,
+    [saveTransaction.account_id, saveTransaction.date, saveTransaction.category, saveTransaction.amount, saveTransaction.transaction_title, saveTransaction.description], (error, result)=>{
+        if(error){
+            console.log('Error in saveTransaction', error);
+            response.sendStatus(500);
+        }else{
+            response.sendStatus(201);
+        }
+        });
+ });
+
+
+//  router.post('/register', (req, res, next) => {
+//     const username = req.body.username;
+//     const password = encryptLib.encryptPassword(req.body.password);
+  
+//     var saveUser = {
+//       username: req.body.username,
+//       password: encryptLib.encryptPassword(req.body.password)
+//     };
+//     console.log('new user:', saveUser);
+//     //holding place if phone and email are used in the future
+//     // pool.query('INSERT INTO users (username, password, phone_number, email) VALUES ($1, $2, $3, $4) RETURNING id',
+//     pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
+//     //holding place if phone and email are used in the future
+//     // [saveUser.username, saveUser.password, saveUser.phone_number, saveUser.email], (err, result) => {
+//       [saveUser.username, saveUser.password], (err, result) => {
+//         if (err) {
+//           console.log("Error inserting data: ", err);
+//           res.sendStatus(500);
+//         } else {
+//           res.sendStatus(201);
+//         }
+//       });
+//   });
+ 
 
 module.exports=router;

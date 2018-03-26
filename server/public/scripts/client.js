@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+const myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngAria', 'ngMessages', 'ngAnimate'])
 
 console.log('Angular good to go!');
 

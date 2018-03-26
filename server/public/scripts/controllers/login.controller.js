@@ -37,7 +37,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
         console.log('sending to server...', self.user);
         $http.post('/api/user/register', self.user).then(function (response) {
           console.log('success');
-          $location.path('/home');
+          $location.path('/login');
         },
           function (response) {
             console.log('error');

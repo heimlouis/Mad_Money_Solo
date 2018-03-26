@@ -1,12 +1,61 @@
-<div class="container">
-  <p>
-      <input type="text" placeholder="$0.00">
-      <input type="date" default=today>
-      <br>
-      <input type="text" placeholder="Enter Transaction Title">
-      <br>
-      <textarea name="transactionTextArea" id="transactionTextArea" cols="30" rows="10" placeholder="Description (optional)"></textarea>
-      <br>
-      <button>Submit</button>
-  </p>
-</div>
+<meta name="viewport" content="width=device-width">
+  <div layout="column" layout-align="center center" class"mid-inline-form">
+    <h1 class="md-display-1">Enter Transaction</h1>
+    <form>
+      <!-- Date -->
+      <md-content layout-padding class="enterTransaction">
+        <div flex-gt-xs>
+          <md-datepicker ng-model="ctrl.myDate" md-placeholder="Date"></md-datepicker>
+        </div>
+      </md-content>
+      <!-- Category -->
+      <md-card-content layout-padding class="enterTransaction">
+        <div layout="row" layout-align="cener center">
+          <md-select ng-model="Category" placeholder="Category">
+            <label><i class="material-icons">list</i></label>
+              <md-option value="Household">Household</md-option>
+              <md-option value="Auto">Auto</md-option>
+              <md-option value="Daycare">Daycare</md-option>
+              <md-option value="Education">Education</md-option>
+          </md-select>
+        </div>
+      </md-card-content>
+      <!-- Amount -->
+      <md-content layout-padding class="enterTransaction">
+        <div>
+          <md-input-container>
+            <!-- <label for="Enter Amount">Enter Amount</label> -->
+            <label for="Enter Amount"><i class="material-icons md-18">attach_money</i>   Amount</label>
+            <input type="money" ng-model="vm.newTransaction.amount">
+          </md-input-container>
+        </div>
+      </md-content>
+      <!-- Title -->
+      <md-content layout-padding class="enterTransaction">
+        <div>
+          <md-input-container>
+            <!-- <label for="Transaction Title">Title</label> -->
+            <label for="Transaction Title"><i class="material-icons md-18">subtitles</i>   Title</label>
+            <input type="text" ng-model="vm.newTransaction.transaction_title">
+          </md-input-container>
+        </div>
+      </md-content>
+      <!-- Description -->
+      <md-content layout-padding class="enterTransaction">
+        <div>
+          <md-input-container>
+            <!-- <label for="Transaction Description">Description(optional)</label> -->
+            <label for="Transaction Description"><i class="material-icons">description</i>   Description (optional)</label>
+            <textarea type="text" cols="25" rows="2" ng-model="vm.newTransaction.description"></textarea>
+          </md-input-container>
+        </div>
+      </md-content>
+      <!-- Button -->
+      <md-content layout-padding class="enterTransaction">
+          <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+            <md-button ng-click="vm.addEmployee(ae.newEmployee)" class="md-raised md-primary">Submit</md-button>
+          </section>
+      </md-content>
+    </form>
+  </div>
+

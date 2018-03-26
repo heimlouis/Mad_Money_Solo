@@ -5,11 +5,13 @@
   <br>
     <table class="table table-striped">
       <thead>
+        <th>Category</th>
         <th>Transaction Title</th>
         <th>Transaction Date</th>
         <th>Transaction Amount</th>
         <tbody>
           <tr ng-repeat="transaction in vm.transactionHistory.list | filter: search">
+            <td>{{transaction.category}}</td>
             <td>{{transaction.transaction_title}}</td>
             <td>{{transaction.date | date: format: short}}</td>
             <td>{{transaction.amount}} <button>Delete</button> <button>Edit</button></td>

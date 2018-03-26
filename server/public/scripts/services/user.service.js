@@ -30,7 +30,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
     console.log('UserService -- logout');
     $http.get('/api/user/logout').then(function(response) {
       console.log('UserService -- logout -- logged out');
-      $location.path("/home");
+      $location.path("/login");
     });
   },
 
@@ -38,7 +38,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       console.log('In getTransactionHistory');
       $http({
           method:'GET',
-          url:'/transactions/transaction'
+          url:`/transactions/transaction/${self.userObject.userName}`
       }).then((response)=>{
           self.transactionHistory.list = response.data;
           console.log(self.transactionHistory);

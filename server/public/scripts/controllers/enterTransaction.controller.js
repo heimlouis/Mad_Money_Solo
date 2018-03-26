@@ -4,5 +4,9 @@ myApp.controller('EnterTransactionController', ['UserService', function(UserServ
     self.userService = UserService;
     self.userObject = UserService.userObject;
     
-  }]);
+  self.enterTransaction = function(newTransaction){
+    console.log('adding new transaction:', newTransaction);
+    UserService.enterTransaction(newTransaction);
+  }//end add new transation
+}]);
   
