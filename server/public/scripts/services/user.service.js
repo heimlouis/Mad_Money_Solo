@@ -2,9 +2,11 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
   console.log('UserService Loaded');
   var self = this;
   self.userObject = {};
-  self.transactionHistory = {list:[]}
-  self.accountOverview = {list:[]}
-
+  self.transactionHistory = {};
+  self.accountOverview = {};
+  self.accountOverviewObject = {};
+  self.account_name = '';
+  self.account_id = '';
 
   self.getuser = function(){
     // console.log('UserService -- getuser');
@@ -47,32 +49,42 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
           });
   };//end getAllTransactions
 
+  self.getTransactionHistory();
+
   self.getAccountOverview = function () {
     console.log('In getAccountOverview');
     $http({
         method:'GET',
         url:`/transactions/account/${self.userObject.userName}`
     }).then((response)=>{
-        // console.log(self.userObject.userName);
-        self.accountOverview.list = response.data;
-        console.log(self.accountOverview);
+        console.log('userObject.userName', self.userObject.userName);
+        self.accountOverview.list= response.data;
+        self.accountOverviewObject = response.data[0];
+        console.log(self.accountOverviewObject.account_id);
+        console.log(self.accountOverviewObject.account_name);
+        
+        self.getTransactionHistory();
         }).catch((error)=>{
             console.log('error in self.getAccountOverview',error);
         });
-};//end getAccountOverview
+    };//end getAccountOverview
 
-  self.postTransaction = function(){
-      console.log('in postTransaction');
-      $http({
-          method:'POST',
-          url:'/transactions/transaction',
-          data: self.newTransaction
-      }).then((response)=>{
-          console.log('Added transaction:', response);
-          self.getAllTransactions();
-      }).catch((error)=>{
-          console.log('error in self.postTransaction',error);
-      });
-  };//end postTransaction
+  self.enterTransaction = function(transaction){
+    console.log('in enterTransaction', transaction);
+    let account_id = transaction.account_id
+    $http({
+        method:'POST',
+        // url:`/transactions/transaction/${self.accountOverviewObject.account_id}`,
+        url:`/transactions/transaction/${self.accountOverviewObject.account_id}`,
+        data: transaction
+    }).then((response)=>{
+      //   self.accountOverview.list = response.data;
+      self.account_id = response.data.account_id;
+        console.log('Added transaction:', response);
+        self.getTransactionHistory();
+    }).catch((error)=>{
+        console.log('error in self.accountOverview',error);
+    });
+};//end enterTransaction
 
 }]);
