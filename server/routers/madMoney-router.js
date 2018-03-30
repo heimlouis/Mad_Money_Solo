@@ -66,8 +66,10 @@ router.get('/account/:userName', function (request, response) {
 router.post('/transaction/:account_id', function (request, response) {
     const account_id = request.params.account_id;
     console.log('in request.params:', request.params.account_id);
-    const sqlText = `INSERT INTO register (account_id, date, category, amount, transaction_title, description) VALUES ($1, $2, $3, $4, $5, $6)`
-    pool.query(sqlText, [account_id, request.body.date, request.body.category, request.body.amount, request.body.transaction_title, request.body.description])
+    console.log(request.body, 'request.body in router**********************************************************');
+    
+    const sqlText = `INSERT INTO register (account_id, date, category, amount, transaction_title, description, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+    pool.query(sqlText, [account_id, request.body.date, request.body.category, request.body.amount, request.body.transaction_title, request.body.description, request.body.imageUrl])
         .then(function (result) {
             console.log('added transaction', result);
             response.sendStatus(201);

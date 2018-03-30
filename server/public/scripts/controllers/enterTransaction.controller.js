@@ -7,13 +7,15 @@ myApp.controller('EnterTransactionController', ['UserService', '$routeParams', f
   self.accountOverview = UserService.accountOverview;
   self.getAccountOverview = UserService.getAccountOverview;
   self.enterTransaction = UserService.enterTransaction;
+  self.upload = UserService.upload;
   self.objectToSend = {
     account_name: '',
     date: '',
     amount: '',
     category: '',
     transaction_title: '',
-    description: ''
+    description: '',
+    imageUrl: '' //add DB column to DB
   }
   // self.thing = 'thing';
   // self.enterTransaction();
@@ -25,8 +27,8 @@ myApp.controller('EnterTransactionController', ['UserService', '$routeParams', f
   // }//end add new transation
 
   self.createTransaction = function () {
+
     console.log("in enterTransaction");
-  
     console.log('obj:', self.objectToSend);
     console.log('account_id', self.accountOverview.selectedAccount);
   

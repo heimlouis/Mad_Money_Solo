@@ -7,6 +7,9 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     self.accountOverviewObject = {};
     self.account_name = '';
     self.account_id = '';
+    // self.transaction = {};
+    self.client = filestack.init("AaimOvRW2Qi51juomeEunz");
+    self.imageUrl='';
 
     self.getuser = function () {
         // console.log('UserService -- getuser');
@@ -70,6 +73,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     };//end getAccountOverview
 
     self.enterTransaction = function (transaction, account_id) {
+        transaction.imageUrl = self.imageUrl;
         console.log('in enterTransaction', transaction);
         // let account_id = transaction.account_id
         $http({
@@ -98,4 +102,15 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         });
     }
 
+self.upload = function(){
+    console.log('in upload');
+    self.client.pick({
+        accept:'image/*',
+        maxFiles: 1
+    }).then(function (results) {
+        alert('image successful');
+        self.imageUrl = results.filesUploaded[0].url;
+        console.log('self.imageUrl', self.imageUrl);
+    })
+}
 }]);

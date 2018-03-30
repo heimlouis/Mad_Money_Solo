@@ -16,6 +16,10 @@
         <br>
         <md-card-text class="cardFormat">Description: {{transaction.description}}</md-card-text>
         <br>
+        <md-card-text class="cardFormat">imageUrl: {{transaction.image_url}}</md-card-text>
+        <!-- <a href={{transaction.image_url}}>Image</a> -->
+        <img href={{transaction.image_url}} ng-src="{{transaction.image_url}}" alt=""width="30px">
+        <br>
         <div class="md-media-lg card-media"></div>
         </md-card-title-media>
         </md-card-title>
