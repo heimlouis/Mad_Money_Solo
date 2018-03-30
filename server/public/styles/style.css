@@ -107,3 +107,7 @@ li a:hover {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.cardFormat{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

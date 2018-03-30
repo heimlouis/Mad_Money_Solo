@@ -1,22 +1,28 @@
-<h1>Transaction History</h1>
+<h1 class="md-display-1 cardFormat">Transaction History</h1>
+<md-input-container>
+  <input type="text" placeholder="Search" ng-model="search">
+</md-input-container>
 <div class="container">
-  <input type="text" ng-model="search" placeholder="Search">
-  <br>
-  <br>
-    <table class="table table-striped">
-      <thead>
-        <th>Category</th>
-        <th>Transaction Title</th>
-        <th>Transaction Date</th>
-        <th>Transaction Amount</th>
-        <tbody>
-          <tr ng-repeat="transaction in vm.transactionHistory.list | filter: search">
-            <td>{{transaction.category}}</td>
-            <td>{{transaction.transaction_title}}</td>
-            <td>{{transaction.date | date: format: short}}</td>
-            <td>{{transaction.amount}} <button>Delete</button> <button>Edit</button></td>
-          </tr>
-        </tbody>
-      </thead>
-    </table>
-</div>
+  <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch ng-repeat="transaction in vm.transactionHistory.list | filter: search">
+        <md-card-text class="cardFormat">Transaction Date: {{transaction.date | date: format: short}}</md-card-text>
+        <br>
+        <md-card-text class="cardFormat">Transaction Amount: {{transaction.amount}}</md-card-text>
+        <br>
+        <md-card-text class="cardFormat">Category: {{transaction.category}}</md-card-text>
+        <br>
+        <md-card-text class="cardFormat">Title: {{transaction.transaction_title}}</md-card-text>
+        <br>
+        <md-card-text class="cardFormat">Description: {{transaction.description}}</md-card-text>
+        <br>
+        <div class="md-media-lg card-media"></div>
+        </md-card-title-media>
+        </md-card-title>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class="btn btn-default md-warn" ng-click="vm.delete(transaction.register_id)">Delete</md-button>
+        </md-card-actions>
+      </md-card>
+  </md-content>
+  </div>

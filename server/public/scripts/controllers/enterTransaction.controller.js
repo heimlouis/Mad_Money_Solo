@@ -28,7 +28,6 @@ myApp.controller('EnterTransactionController', ['UserService', function(UserServ
     }
     console.log( 'obj:', objectToSend );
     self.enterTransaction(objectToSend);
-
   }
 
   // self.enterTransaction();
