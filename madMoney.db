@@ -95,13 +95,12 @@ INSERT INTO accounts (user_id, account_name, budget_amount) VALUES (1, 'Louis an
 --COMMIT
 
 --JOIN QUERY TO GET REMAINING BALANCE
-SELECT DISTINCT A.account_name, (SELECT DISTINCT budget_amount FROM accounts) - (SELECT SUM(amount) FROM register) AS remaining_balance FROM accounts AS A
+SELECT DISTINCT A.account_name, A.budget_amount, A.account_id, (A.budget_amount) - (SELECT SUM(amount) FROM register AS R WHERE R.account_id = A.account_id) AS remaining_balance
+FROM accounts AS A
 JOIN users AS U
 ON A.user_id = U.id 
-JOIN register AS R
-ON R.account_id = A.account_id
 WHERE U.username='h'
-group by account_name
+group by A.account_name, A.budget_amount, A.account_id
 
 --JOIN QUERY TO GET USER HISTORY
 SELECT DISTINCT * FROM accounts AS A
@@ -110,3 +109,13 @@ ON A.user_id = U.id
 JOIN register AS R
 ON R.account_id = A.account_id
 WHERE U.username='h'
+
+--JOIN QUERY FOR INSERT
+BEGIN;
+INSERT INTO register (account_id, category, amount, date, transaction_title, description) VALUES (1,'Household', 3.45, '04/21/2018', 'charge', 'expenes');
+SELECT * FROM register
+
+--DELETE FROM REGISTER BY REGISTER_ID
+BEGIN;
+DELETE FROM register WHERE register_id=25
+select * from register

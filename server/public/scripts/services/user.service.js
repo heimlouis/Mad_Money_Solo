@@ -3,7 +3,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     var self = this;
     self.userObject = {};
     self.transactionHistory = {};
-    self.accountOverview = {};
+    self.accountOverview = {list:[]};
     self.accountOverviewObject = {};
     self.account_name = '';
     self.account_id = '';
@@ -59,9 +59,9 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         }).then((response) => {
             console.log('userObject.userName', self.userObject.userName);
             self.accountOverview.list = response.data;
-            self.accountOverviewObject = response.data[0];
-            console.log(self.accountOverviewObject.account_id);
-            console.log(self.accountOverviewObject.account_name);
+            // self.accountOverviewObject = response.data[0];
+            // console.log(self.accountOverviewObject.account_id);
+            // console.log(self.accountOverviewObject.account_name);
 
             self.getTransactionHistory();
         }).catch((error) => {
@@ -69,21 +69,19 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         });
     };//end getAccountOverview
 
-    self.enterTransaction = function (transaction) {
+    self.enterTransaction = function (transaction, account_id) {
         console.log('in enterTransaction', transaction);
-        let account_id = transaction.account_id
+        // let account_id = transaction.account_id
         $http({
             method: 'POST',
-            // url:`/transactions/transaction/${self.accountOverviewObject.account_id}`,
-            url: `/transactions/transaction/${self.accountOverviewObject.account_id}`,
+            url: `/transactions/transaction/${transaction.account_id}`,
             data: transaction
         }).then((response) => {
-            //   self.accountOverview.list = response.data;
             self.account_id = response.data.account_id;
             console.log('Added transaction:', response);
             self.getTransactionHistory();
         }).catch((error) => {
-            console.log('error in self.accountOverview', error);
+            console.log('error in enterTransaction', error);
         });
     };//end enterTransaction
 
@@ -91,13 +89,12 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         console.log('delete', deleteRegId);
         $http({
             method: 'DELETE',
-            // url:`/transactions/transaction/${self.accountOverviewObject.account_id}`,
             url: `/transactions/transaction/${deleteRegId}`
         }).then((response) => {
             console.log('Deleted transaction:', response);
             self.getTransactionHistory();
         }).catch((error) => {
-            console.log('error in self.accountOverview', error);
+            console.log('error in deleteRegisterTransaction', error);
         });
     }
 

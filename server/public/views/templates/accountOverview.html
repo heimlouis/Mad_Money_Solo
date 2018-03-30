@@ -1,11 +1,28 @@
-<meta name="viewport" content="width=device-width">
-  <form>
+<!-- <meta name="viewport" content="width=device-width">
     <div layout="column" layout-align="center center" class"mid-inline-form">
       <h1 layout-align="center center" class="md-display-1 cardFormat">Account Overview</h1>
       <h3 layout-align="center center" class="md-headline cardFormat" ng-repeat="account in vm.accountOverview.list">Account Name: {{account.account_name}}</h3>
       <h3 layout-align="center center" class="md-headline cardFormat" ng-repeat="account in vm.accountOverview.list">Budget Amount: {{account.budget_amount}}</h3>
       <h3 layout-align="center center" class="md-headline cardFormat" ng-repeat="account in vm.accountOverview.list">Budget Balance Remaining: {{account.remaining_balance}}</h3>
       <md-button class="md-raised md-primary"><a href="#!enterTransaction" style="text-decoration: none;"><font color="white">Enter Transaction</font></a></md-button>
-    </div>
-  </form>
+    </div> -->
 
+  <div class="container">
+      <md-content class="md-padding" layout-xs="column" layout="row">
+        <div flex-xs flex-gt-xs="50" layout="column">
+          <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch ng-repeat="account in vm.accountOverview.list">
+            <md-card-text class="cardFormat">Account Name: {{account.account_name}}</md-card-text>
+            <br>
+            <md-card-text class="cardFormat">Budget Amount: {{account.budget_amount}}</md-card-text>
+            <br>
+            <md-card-text class="cardFormat">Budget Balance Remaining: {{account.remaining_balance}}</md-card-text>
+            <br>
+            <div class="md-media-lg card-media"></div>
+            </md-card-title-media>
+            </md-card-title>
+    
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button class="btn btn-default md-warn" ng-click="vm.enterTransaction(account.account_id)">Enter Transaction</md-button>
+            </md-card-actions>
+          </md-card>
+      </md-content>

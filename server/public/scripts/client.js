@@ -27,6 +27,15 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         }
       }
     })
+    .when('/enterTransaction/:account_id', {
+      templateUrl: '/views/templates/enterTransaction.html',
+      controller: 'EnterTransactionController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/enterTransaction', {
       templateUrl: '/views/templates/enterTransaction.html',
       controller: 'EnterTransactionController as vm',

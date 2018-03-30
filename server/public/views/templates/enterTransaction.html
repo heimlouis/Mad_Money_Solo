@@ -1,26 +1,26 @@
 <meta name="viewport" content="width=device-width">
 <div layout="column" layout-align="center center" class "mid-inline-form">
   <h1 class="md-display-1 cardFormat">Enter Transaction</h1>
-  <md-card-content>
-    <div layout="row">
-      <md-select ng-model="vm.account_name" ng-repeat="account in vm.accountOverview">
-        <md-option ng-value={{account.account_name}} placeholder="Category">
-          {{ vm.accountOverview.list[0].account_name }}
-        </md-option>
+  <!-- Account -->
+  <md-card-content layout-padding class="enterTransaction">
+    <div layout="row" layout-align="cener center">
+      <md-select ng-model="vm.objectToSend.account_id" placeholder="Account">
+        <label>Account</label>
+        <md-option ng-selected="account.account_id == vm.objectToSend.account_id" ng-repeat="account in vm.accountOverview.list" ng-value={{account.account_id}}>{{ account.account_name }}</md-option>
       </md-select>
     </div>
   </md-card-content>
   <!-- Date -->
   <md-content layout-padding class="enterTransaction">
     <div flex-gt-xs>
-      <md-datepicker ng-model="vm.date" md-placeholder="Date"></md-datepicker>
+      <md-datepicker ng-model="vm.objectToSend.date" md-placeholder="Date"></md-datepicker>
     </div>
   </md-content>
   <!-- Category -->
   <md-card-content layout-padding class="enterTransaction">
     <div layout="row" layout-align="cener center">
-      <md-select ng-model="vm.category" placeholder="Category">
-        <label></label>
+      <md-select ng-model="vm.objectToSend.category" placeholder="Category">
+        <label>Category</label>
         <md-option value="Household">Household</md-option>
         <md-option value="Auto">Auto</md-option>
         <md-option value="Daycare">Daycare</md-option>
@@ -33,9 +33,8 @@
     <div>
       <md-input-container>
         <!-- <label for="Enter Amount">Enter Amount</label> -->
-        <label for="Enter Amount">
-          <i class="material-icons md-18">attach_money</i> Amount</label>
-        <input type="money" ng-model="vm.amount">
+        <label for="Enter Amount">Amount</label>
+        <input type="money" ng-model="vm.objectToSend.amount">
       </md-input-container>
     </div>
   </md-content>
@@ -44,9 +43,8 @@
     <div>
       <md-input-container>
         <!-- <label for="Transaction Title">Title</label> -->
-        <label for="Transaction Title">
-          <i class="material-icons md-18">subtitles</i> Title</label>
-        <input type="text" ng-model="vm.transaction_title">
+        <label for="Transaction Title">Title</label>
+        <input type="text" ng-model="vm.objectToSend.transaction_title">
       </md-input-container>
     </div>
   </md-content>
@@ -55,9 +53,8 @@
     <div>
       <md-input-container>
         <!-- <label for="Transaction Description">Description(optional)</label> -->
-        <label for="Transaction Description">
-          <i class="material-icons">description</i> Description (optional)</label>
-        <textarea type="text" cols="25" rows="2" ng-model="vm.description"></textarea>
+        <label for="Transaction Description">Description (optional)</label>
+        <textarea type="text" cols="25" rows="2" ng-model="vm.objectToSend.description"></textarea>
       </md-input-container>
     </div>
   </md-content>

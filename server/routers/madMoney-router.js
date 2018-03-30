@@ -41,15 +41,19 @@ router.get('/transaction/:userName', function (request, response) {
 router.get('/account/:userName', function (request, response) {
     const userName = request.params.userName;
     // console.log('******* this is the usernme to get accounts *******', userName);
-    const sqlText = `SELECT DISTINCT A.account_name, A.budget_amount, A.account_id, (SELECT DISTINCT budget_amount FROM accounts) - (SELECT SUM(amount) FROM register) AS remaining_balance FROM accounts AS A
+    const sqlText = `SELECT DISTINCT A.account_name, A.budget_amount, A.account_id, (A.budget_amount) - (SELECT SUM(amount) FROM register AS R WHERE R.account_id = A.account_id) AS remaining_balance FROM accounts AS A
                     JOIN users AS U
                     ON A.user_id = U.id 
-                    JOIN register AS R
-                    ON R.account_id = A.account_id
                     WHERE U.username=$1
                     group by A.account_name, A.budget_amount, A.account_id`
     pool.query(sqlText, [userName])
         .then(function (result) {
+            for(let row of result.rows){
+                if (row.remaining_balance == null){
+                    row.remaining_balance=row.budget_amount
+                }
+                console.log('this is the row',row);
+            }
             response.send(result.rows);
         })
         .catch(function (error) {
@@ -82,7 +86,7 @@ router.delete('/transaction/:deleteRegId', function (request, response) {
                     WHERE register_id=$1::integer;`
     pool.query(sqlText, [request.params.deleteRegId])
         .then(function (result) {
-            response.send(result.rows);
+            response.sendStatus(201);
         })
         .catch(function (error) {
             console.log('Error on delete:', error);
