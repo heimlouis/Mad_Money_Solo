@@ -3,21 +3,19 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     var self = this;
     self.userObject = {};
     self.transactionHistory = {};
-    self.accountOverview = {list:[]};
+    self.accountOverview = { list: [] };
     self.accountOverviewObject = {};
     self.account_name = '';
     self.account_id = '';
     // self.transaction = {};
     self.client = filestack.init("AaimOvRW2Qi51juomeEunz");
-    self.imageUrl='';
+    self.imageUrl = '';
 
     self.getuser = function () {
-        // console.log('UserService -- getuser');
         $http.get('/api/user').then(function (response) {
             if (response.data.username) {
                 // user has a curret session on the server
                 self.userObject.userName = response.data.username;
-                // console.log('UserService -- getuser -- User Data: ', self.userObject.userName);
             } else {
                 console.log('UserService -- getuser -- failure');
                 // user has no session, bounce them back to the login page
@@ -29,7 +27,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-    self.getuser();//**this might need to be updated**
+    self.getuser();
 
     self.logout = function () {
         console.log('UserService -- logout');
@@ -40,13 +38,15 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     }
 
     self.getTransactionHistory = function () {
-        console.log('In getTransactionHistory');
+        console.log('In getTransactionHistory', self.accountOverview);
         $http({
             method: 'GET',
             url: `/transactions/transaction/${self.userObject.userName}`
         }).then((response) => {
             self.transactionHistory.list = response.data;
-            console.log(self.transactionHistory);
+            console.log('transactionHistory', self.transactionHistory);
+            console.log('account_name', self.account_name);
+
         }).catch((error) => {
             console.log('error in self.getTransactionHistory', error);
         });
@@ -62,9 +62,6 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         }).then((response) => {
             console.log('userObject.userName', self.userObject.userName);
             self.accountOverview.list = response.data;
-            // self.accountOverviewObject = response.data[0];
-            // console.log(self.accountOverviewObject.account_id);
-            // console.log(self.accountOverviewObject.account_name);
 
             self.getTransactionHistory();
         }).catch((error) => {
@@ -75,7 +72,6 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     self.enterTransaction = function (transaction, account_id) {
         transaction.imageUrl = self.imageUrl;
         console.log('in enterTransaction', transaction);
-        // let account_id = transaction.account_id
         $http({
             method: 'POST',
             url: `/transactions/transaction/${transaction.account_id}`,
@@ -89,7 +85,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         });
     };//end enterTransaction
 
-    self.deleteRegisterTransactionId = function (deleteRegId){
+    self.deleteRegisterTransactionId = function (deleteRegId) {
         console.log('delete', deleteRegId);
         $http({
             method: 'DELETE',
@@ -102,15 +98,15 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-self.upload = function(){
-    console.log('in upload');
-    self.client.pick({
-        accept:'image/*',
-        maxFiles: 1
-    }).then(function (results) {
-        alert('image successful');
-        self.imageUrl = results.filesUploaded[0].url;
-        console.log('self.imageUrl', self.imageUrl);
-    })
-}
+    self.upload = function () {
+        console.log('in upload');
+        self.client.pick({
+            accept: 'image/*',
+            maxFiles: 1
+        }).then(function (results) {
+            alert('image successful');
+            self.imageUrl = results.filesUploaded[0].url;
+            console.log('self.imageUrl', self.imageUrl);
+        })
+    }
 }]);

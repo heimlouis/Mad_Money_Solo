@@ -20,13 +20,13 @@ router.get('/', (req, res) => {
 //get transaction
 router.get('/transaction/:userName', function (request, response) {
     const userName = request.params.userName;
-    const sqlText = `SELECT DISTINCT R.* FROM accounts AS A
+    const sqlText = `SELECT DISTINCT R.*, A.account_name FROM accounts AS A
                     JOIN users AS U
                     ON A.user_id = U.id 
                     JOIN register AS R
                     ON R.account_id = A.account_id
                     WHERE U.username=$1
-                    ORDER BY date DESC`
+                    ORDER BY A.account_name, R.date DESC`
     pool.query(sqlText, [userName])
         .then(function (result) {
             response.send(result.rows);

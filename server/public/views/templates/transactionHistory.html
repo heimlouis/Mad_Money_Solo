@@ -6,6 +6,8 @@
   <md-content class="md-padding" layout-xs="column" layout="row">
     <div flex-xs flex-gt-xs="50" layout="column">
       <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch ng-repeat="transaction in vm.transactionHistory.list | filter: search">
+        <md-card-text class="cardFormat">Account Name: {{transaction.account_name}}</md-card-text>
+        <br>
         <md-card-text class="cardFormat">Transaction Date: {{transaction.date | date: format: short}}</md-card-text>
         <br>
         <md-card-text class="cardFormat">Transaction Amount: {{transaction.amount}}</md-card-text>
@@ -16,10 +18,10 @@
         <br>
         <md-card-text class="cardFormat">Description: {{transaction.description}}</md-card-text>
         <br>
-        <md-card-text class="cardFormat">imageUrl: {{transaction.image_url}}</md-card-text>
-        <!-- <a href={{transaction.image_url}}>Image</a> -->
-        <img href={{transaction.image_url}} ng-src="{{transaction.image_url}}" alt=""width="30px">
-        <br>
+        <md-card-text class="cardFormat">Image:</md-card-text>
+        <a href={{transaction.image_url}}>
+          <img href={{transaction.image_url}} ng-src="{{transaction.image_url}}" alt="" width="250px">
+        </a>
         <div class="md-media-lg card-media"></div>
         </md-card-title-media>
         </md-card-title>
