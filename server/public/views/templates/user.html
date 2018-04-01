@@ -1,5 +1,6 @@
 <div class="container">
     <h1 class="md-display-1 cardFormat">User Information</h1>
     <h1 class="md-headline cardFormat">Welcome, {{vm.userObject.userName}}!</h1>
-    <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
+    <!-- <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button> -->
+    <md-button ng-click='vm.userService.logout()' class="md-raised md-primary" type="submit" name="submit">Log Out</md-button>
 </div>

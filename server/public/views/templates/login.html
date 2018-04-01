@@ -1,18 +1,27 @@
 <div class="container">
-  <h1 class="lead">Login</h1>
-    <h1 class="lead alert alert-danger" role="alert" ng-if="vm.message != ''">{{vm.message}}</h2>
-    <form ng-submit="vm.login()">
-      <div>
-          <label for="username">Username:</label>
-          <input type="text" ng-model="vm.user.username" />
-      </div>
-      <div>
-          <label for="password">Password:</label>
-          <input type="password" ng-model="vm.user.password" />
-      </div>
-      <div>
-          <input class="btn btn-default" type="submit" name="submit" value="Log In" />
-          <a href="#!register">Register</a>
-      </div>
-    </form>
+    <h1 class="lead" class="inputFormat">Login</h1>
+    <h1 class="lead alert alert-danger cardFormat" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
+        <form ng-submit="vm.login()">
+            <div>
+                <md-input-container>
+                    <label for="username">Username</label>
+                    <input type="text" ng-model="vm.user.username" required class="inputFormat">
+                </md-input-container>
+                <!-- <label for="username">Username:</label>
+                <input type="text" ng-model="vm.user.username" /> -->
+            </div>
+            <div>
+                <md-input-container>
+                    <label for="password">Password</label>
+                    <input type="password" ng-model="vm.user.password" required class="inputFormat">
+                </md-input-container>
+                <!-- <label for="password">Password:</label>
+                <input type="password" ng-model="vm.user.password" /> -->
+            </div>
+            <div>
+                <md-button ng-click='vm.upload()' class="md-raised md-primary" type="submit" name="submit">Log In</md-button>
+                <!-- <input class="btn btn-default" type="submit" name="submit" value="Log In" /> -->
+                <a href="#!register">Register</a>
+            </div>
+        </form>
 </div>

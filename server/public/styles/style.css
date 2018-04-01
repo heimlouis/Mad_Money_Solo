@@ -111,3 +111,39 @@ li a:hover {
 .cardFormat{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+.cardFormatPadding{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 10px 0px 0px 25px;
+}
+
+.buttonFormat{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+left: 0px;
+width: 160px;
+padding: 0px 0px 0px 0px;
+}
+
+.submitButtonAccountOverview{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+left: 0px;
+width: 160px;
+padding: 0px 0px 45px 0px;
+}
+
+.inputFormat{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+left: 0px;
+width: 160px;
+padding: 15px;
+}
+
+.headerFormat{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+left: 0px;
+padding: 0px 0px 0px 10px;
+}
+
+.logoutButton{
+  float: right;
+}

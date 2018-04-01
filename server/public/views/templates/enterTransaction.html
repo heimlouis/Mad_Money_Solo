@@ -1,74 +1,89 @@
 <meta name="viewport" content="width=device-width">
-<div layout="column" layout-align="center center" class "mid-inline-form">
-  <h1 class="md-display-1 cardFormat">Enter Transaction</h1>
-  <!-- Account -->
-  <md-card-content layout-padding class="enterTransaction">
-    <div layout="row" layout-align="cener center">
-      <md-select ng-model="vm.objectToSend.account_id" placeholder="Account">
-        <label>Account</label>
-        <md-option ng-selected="account.account_id == vm.objectToSend.account_id" ng-repeat="account in vm.accountOverview.list" ng-value={{account.account_id}}>{{ account.account_name }}</md-option>
-      </md-select>
-    </div>
-  </md-card-content>
-  <!-- Date -->
-  <md-content layout-padding class="enterTransaction">
-    <div flex-gt-xs>
-      <md-datepicker ng-model="vm.objectToSend.date" md-placeholder="Date"></md-datepicker>
-    </div>
-  </md-content>
-  <!-- Category -->
-  <md-card-content layout-padding class="enterTransaction">
-    <div layout="row" layout-align="cener center">
-      <md-select ng-model="vm.objectToSend.category" placeholder="Category">
-        <label>Category</label>
-        <md-option value="Household">Household</md-option>
-        <md-option value="Auto">Auto</md-option>
-        <md-option value="Daycare">Daycare</md-option>
-        <md-option value="Education">Education</md-option>
-      </md-select>
-    </div>
-  </md-card-content>
-  <!-- Amount -->
-  <md-content layout-padding class="enterTransaction">
-    <div>
-      <md-input-container>
-        <!-- <label for="Enter Amount">Enter Amount</label> -->
-        <label for="Enter Amount">Amount</label>
-        <input type="money" ng-model="vm.objectToSend.amount">
-      </md-input-container>
-    </div>
-  </md-content>
-  <!-- Title -->
-  <md-content layout-padding class="enterTransaction">
-    <div>
-      <md-input-container>
-        <!-- <label for="Transaction Title">Title</label> -->
-        <label for="Transaction Title">Title</label>
-        <input type="text" ng-model="vm.objectToSend.transaction_title">
-      </md-input-container>
-    </div>
-  </md-content>
-  <!-- Description -->
-  <md-content layout-padding class="enterTransaction">
-    <div>
-      <md-input-container>
-        <!-- <label for="Transaction Description">Description(optional)</label> -->
-        <label for="Transaction Description">Description (optional)</label>
-        <textarea type="text" cols="25" rows="2" ng-model="vm.objectToSend.description"></textarea>
-      </md-input-container>
-    </div>
-  </md-content>
+<md-button ng-click='vm.userService.logout()' class="md-raised md-primary logoutButton" type="submit" name="submit">Log Out</md-button>
+<h1 class="lead alert alert-danger cardFormat" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
+<form ng-submit="vm.login()">
+  <div layout="column" layout-align=" center" class "mid-inline-form">
+    <h1 class="md-display-1 cardFormat">Enter Transaction</h1>
+
+    <!-- Account -->
+    <md-card-content>
+      <div layout="row" layout-align="cener center">
+        <md-select ng-model="vm.objectToSend.account_id" placeholder="Account" required class="inputFormat">
+          <label>Account</label>
+          <md-option ng-selected="account.account_id == vm.objectToSend.account_id" ng-repeat="account in vm.accountOverview.list"
+            ng-value={{account.account_id}}>{{ account.account_name }}</md-option>
+        </md-select>
+      </div>
+    </md-card-content>
+
+    <!-- Date -->
+    <md-content>
+      <div>
+        <md-datepicker ng-model="vm.objectToSend.date" md-placeholder="Date"></md-datepicker>
+      </div>
+    </md-content>
+
+    <!-- Category -->
+    <md-card-content class="inputFormat">
+      <div layout="row" layout-align="cener center">
+        <md-select ng-model="vm.objectToSend.category" placeholder="Category" required class="inputFormat">
+          <label>Category</label>
+          <md-option value="Exp - Daily Exp">Exp - Daily Exp</md-option>
+          <md-option value="Exp - Household">Exp - Household</md-option>
+          <md-option value="Exp - Auto">Exp - Auto</md-option>
+          <md-option value="Exp - Daycare">Exp - Daycare</md-option>
+          <md-option value="Home Improvement">Bdg - Home Improvement</md-option>
+          <md-option value="Hobby">Bdg - Garage</md-option>
+        </md-select>
+      </div>
+    </md-card-content>
+
+    <!-- Amount -->
+    <md-content class="inputFormat">
+      <div>
+        <md-input-container>
+          <!-- <label for="Enter Amount">Enter Amount</label> -->
+          <label for="Enter Amount">Amount</label>
+          <input type="money" ng-model="vm.objectToSend.amount" required>
+        </md-input-container>
+      </div>
+    </md-content>
+
+    <!-- Title -->
+    <md-content class="inputFormat">
+      <div>
+        <md-input-container>
+          <!-- <label for="Transaction Title">Title</label> -->
+          <label for="Transaction Title">Title</label>
+          <input type="text" ng-model="vm.objectToSend.transaction_title" required>
+        </md-input-container>
+      </div>
+    </md-content>
+
+    <!-- Description -->
+    <md-content class="inputFormat">
+      <div>
+        <md-input-container>
+          <!-- <label for="Transaction Description">Description(optional)</label> -->
+          <label for="Transaction Description">Description (optional)</label>
+          <textarea type="text" cols="30" rows="2" ng-model="vm.objectToSend.description"></textarea>
+        </md-input-container>
+      </div>
+    </md-content>
+
     <!-- Image Button -->
-    <md-content layout-padding class="enterImage">
-        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
-          <md-button ng-click='vm.upload()' class="md-raised md-primary" type="submit" name="submit">Image Upload</md-button>
-        </section>
-      </md-content>
-  <!-- Button -->
-  <md-content layout-padding class="enterTransaction">
-    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
-      <!-- <md-button class="md-raised md-primary" type="submit" name="submit">Submit</md-button> -->
-      <md-button ng-click='vm.createTransaction()' class="md-raised md-primary" type="submit" name="submit">Submit</md-button>
-    </section>
-  </md-content>
-</div>
+    <md-content class="buttonFormat">
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+        <md-button ng-click='vm.upload()' class="md-raised md-primary" type="submit" name="submit">Image Upload</md-button>
+      </section>
+    </md-content>
+
+    <!-- Button -->
+    <md-content class="buttonFormat">
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+        <!-- <md-button class="md-raised md-primary" type="submit" name="submit">Submit</md-button> -->
+        <md-button ng-click='vm.createTransaction()' class="md-raised md-primary" type="submit" name="submit">Submit</md-button>
+      </section>
+    </md-content>
+  </div>
+</form>

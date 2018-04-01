@@ -2269,7 +2269,7 @@ md-input-container {
   display: inline-block;
   position: relative;
   padding: 2px;
-  margin: 18px 0;
+  /* margin: 18px 0; */
   vertical-align: middle;
   /*
    * The .md-input class is added to the input/textarea
@@ -3763,7 +3763,7 @@ md-select {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  margin: 20px 0 26px 0; }
+  margin: 12px 0 12px 0; }
   md-select[required].ng-invalid:not(.md-no-asterisk) .md-select-value span:first-child:after, md-select.ng-required.ng-invalid:not(.md-no-asterisk) .md-select-value span:first-child:after {
     content: ' *';
     font-size: 13px;

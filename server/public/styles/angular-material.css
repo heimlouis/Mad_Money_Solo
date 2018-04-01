@@ -2269,7 +2269,7 @@ md-input-container {
   display: inline-block;
   position: relative;
   padding: 2px;
-  margin: 18px 0;
+  /* margin: 18px 0; */
   vertical-align: middle;
   /*
    * The .md-input class is added to the input/textarea
