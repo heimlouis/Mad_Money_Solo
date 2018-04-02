@@ -7,9 +7,13 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     self.accountOverviewObject = {};
     self.account_name = '';
     self.account_id = '';
+    self.accountToCreate = {};
     // self.transaction = {};
-    self.client = filestack.init("AaimOvRW2Qi51juomeEunz");
+    self.client = filestack.init("AaimOvRW2Qi51juomeEunz"); //filestack api key
     self.imageUrl = '';
+
+console.log('accoutToCreate user.service side', self.accountToCreate);
+
 
     self.getuser = function () {
         $http.get('/api/user').then(function (response) {
@@ -109,4 +113,37 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
             console.log('self.imageUrl', self.imageUrl);
         })
     }
+
+    // self.accountToCreate = function (user_name) {
+    //     console.log('in userService self.userObject.userName', self.userObject.userName);
+        
+    //     console.log('createAccount', user_name);
+    //     console.log(self.userObject);
+        
+    //     $http({
+    //         method: 'POST',
+    //         url: `/accounts/account/${user_name}`
+    //     }).then((response) => {
+    //         console.log('added account to accounts:', response);
+    //         self.getAccountOverview();
+    //     }).catch((error) => {
+    //         console.log('error in addAccount', error);
+    //     });
+    // }
+
+    self.enterAccount = function (account) {
+        console.log('********** In the enterAccount user.Service ***********************',account);
+        $http({
+            method: 'POST',
+            url: `/transactions/account`,
+            data: account
+        }).then((response) => {
+            self.username = response.data.username;
+            console.log('Added account:', response);
+            self.getAccountOverview();
+        }).catch((error) => {
+            console.log('error in enterAccount', error);
+        });
+    };//end enterTransaction
+
 }]);

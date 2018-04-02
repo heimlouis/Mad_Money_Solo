@@ -6,10 +6,11 @@ myApp.controller('AccountOverviewController', ['UserService', '$location', funct
   self.transactionHistory = UserService.transactionHistory;
   self.accountOverview = UserService.accountOverview;
   self.getAccountOverview = UserService.getAccountOverview;
-  self.accountToCreate = {
+  self.createAccount = UserService.createAccount;
+  self.enterAccount = UserService.enterAccount;
+  self.accountObjectToSend = {
     account_name: '',
-    budget_amount: '',
-    user_name: ''
+    budget_amount: ''
   }
 
   self.getAccountOverview();
@@ -21,15 +22,19 @@ myApp.controller('AccountOverviewController', ['UserService', '$location', funct
 
   if (self.userObject.userName) {
     console.log('self.userObject.userName', self.userObject.userName);
-    self.accountToCreate.uesr_name = self.userObject.userName
+    self.accountObjectToSend.user_name = self.userObject.userName
   }
 
-  // console.log('testtest', self.accountToCreate);
+  self.createAccount = function(user_name){
+    self.enterAccount(self.accountObjectToSend)
+  }
 
-  // self.enterAccount = function (user_name) {
-  //   console.log("in enterAccount", user_name);
-  //   $location.path(`/enterAccount/${uesr_name}`);
+  //   console.log('in createAccount Function');
+  //   console.log('in createAccount1', self.accountObjectToSend);//this logs the full createAccount Object
+  //   // console.log('in createAccount2', self.accountToCreate.user_name);
+  //   // self.accountToCreate(user_name);
+  //   self.getAccountOverview();
+  //   // $location.path('/enterTransaction')
   // }
   
-
 }]);

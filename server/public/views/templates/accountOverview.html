@@ -1,5 +1,6 @@
 <div class="container">
   <md-button ng-click='vm.userService.logout()' class="md-raised md-primary logoutButton" type="submit" name="submit">Log Out</md-button>
+  <h1 class="md-display-1 cardFormat">Account Overview</h1>
   <!-- Account Cards -->
   <md-content class="md-padding" layout-xs="column" layout="row">
     <div flex-xs flex-gt-xs="50" layout="column">
@@ -22,13 +23,13 @@
 
   <h1 class="lead alert alert-danger cardFormat" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
   <form ng-submit="vm.login()">
-    <p class="cardFormatPadding">Enter Account and Budget Amount then Submit to create a new account</p>
+    <p class="cardFormatPadding">To add additional accounts, enter the Account Name and Budget Amount then click Submit.</p>
 
     <!-- Account Name -->
     <md-content class="cardFormatPadding">
       <md-input-container>
         <label for="accountName">Account Name</label>
-        <input type="text" class="cardFormat" ng-model="vm.accountToCreate.account_name" required>
+        <input type="text" class="cardFormat" ng-model="vm.accountObjectToSend.account_name" required>
       </md-input-container>
     </md-content>
 
@@ -36,14 +37,14 @@
     <md-content class="cardFormatPadding">
       <md-input-container>
         <label for="budgetAmount">Budget Amount</label>
-        <input type="money" class="cardFormat" ng-model="vm.accountToCreate.budget_amount" required>
+        <input type="money" class="cardFormat" ng-model="vm.accountObjectToSend.budget_amount" required>
       </md-input-container>
     </md-content>
 
     <!-- Button -->
     <md-content class="submitButtonAccountOverview">
       <section layout="row" layout-sm="column" layout-align="center left" layout-wrap="">
-        <md-button ng-click='vm.createAccount()' class="md-raised md-primary" type="submit" name="submit">Submit</md-button>
+        <md-button ng-click='vm.createAccount()' class="md-raised md-primary" type="button" name="submit">Submit</md-button>
       </section>
     </md-content>
   </form>

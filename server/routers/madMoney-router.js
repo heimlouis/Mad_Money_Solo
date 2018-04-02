@@ -48,11 +48,11 @@ router.get('/account/:userName', function (request, response) {
                     group by A.account_name, A.budget_amount, A.account_id`
     pool.query(sqlText, [userName])
         .then(function (result) {
-            for(let row of result.rows){
-                if (row.remaining_balance == null){
-                    row.remaining_balance=row.budget_amount
+            for (let row of result.rows) {
+                if (row.remaining_balance == null) {
+                    row.remaining_balance = row.budget_amount
                 }
-                console.log('this is the row',row);
+                console.log('this is the row', row);
             }
             response.send(result.rows);
         })
@@ -66,8 +66,8 @@ router.get('/account/:userName', function (request, response) {
 router.post('/transaction/:account_id', function (request, response) {
     const account_id = request.params.account_id;
     console.log('in request.params:', request.params.account_id);
-    console.log(request.body, 'request.body in router**********************************************************');
-    
+    console.log(request.body, 'request.body in router');
+
     const sqlText = `INSERT INTO register (account_id, date, category, amount, transaction_title, description, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7)`
     pool.query(sqlText, [account_id, request.body.date, request.body.category, request.body.amount, request.body.transaction_title, request.body.description, request.body.imageUrl])
         .then(function (result) {
@@ -95,5 +95,21 @@ router.delete('/transaction/:deleteRegId', function (request, response) {
             response.sendStatus(500);
         })
 })//end delete transaction
+
+//post account
+router.post('/account', function (request, response) {
+    console.log('in request.params:', request.body.user_name);
+    console.log(request.body, 'account post request.body in router******************');
+    const sqlText = `INSERT INTO accounts (user_id, account_name, budget_amount) VALUES ((select distinct a.user_id from accounts as a join users as u on a.user_id=u.id where u.username=$1), $2, $3)`
+    pool.query(sqlText, [request.body.user_name, request.body.account_name, request.body.budget_amount])
+        .then(function (result) {
+            console.log('added transaction', result);
+            response.sendStatus(201);
+        })
+        .catch(function (error) {
+            console.log('error in add transaction', error);
+            response.sendStatus(500);
+        })
+});//end post account
 
 module.exports = router;

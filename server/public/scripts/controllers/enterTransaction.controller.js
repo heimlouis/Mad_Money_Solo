@@ -17,23 +17,10 @@ myApp.controller('EnterTransactionController', ['UserService', '$routeParams', f
     description: '',
     imageUrl: ''
   }
-  // self.thing = 'thing';
-  // self.enterTransaction();
-  self.getAccountOverview();
-  // console.log('getAccountOverview', self.getAccountOverview);
 
-  // self.getAccountOverview = function (enterTransaction) {
-  //   console.log('adding new transaction:', enterTransaction);
-  //   UserService.enterTransaction(enterTransaction);
-  // }//end add new transation
+  self.getAccountOverview();
 
   self.createTransaction = function () {
-
-    // console.log("in enterTransaction");
-    // console.log('obj:', self.objectToSend);
-    // console.log('account_id', self.accountOverview.selectedAccount);
-
-
     self.enterTransaction(self.objectToSend, self.accountOverview.selectedAccount);
   }
 
@@ -42,6 +29,6 @@ myApp.controller('EnterTransactionController', ['UserService', '$routeParams', f
     self.objectToSend.account_id = $routeParams.account_id
   }
 
-  // self.enterTransaction();
+console.log('objectToSend', self.objectToSend);
 
 }]);
