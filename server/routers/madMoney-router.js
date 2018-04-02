@@ -98,9 +98,9 @@ router.delete('/transaction/:deleteRegId', function (request, response) {
 
 //post account
 router.post('/account', function (request, response) {
-    console.log('in request.params:', request.body.user_name);
-    console.log(request.body, 'account post request.body in router******************');
-    const sqlText = `INSERT INTO accounts (user_id, account_name, budget_amount) VALUES ((select distinct a.user_id from accounts as a join users as u on a.user_id=u.id where u.username=$1), $2, $3)`
+    // console.log('in request.params:', request.body.user_name);
+    // console.log(request.body, 'account post request.body in router******************');
+    const sqlText = `INSERT INTO accounts (user_id, account_name, budget_amount) VALUES ((select distinct u.id from users as u left join accounts as a on u.id=a.user_id where u.username=$1), $2, $3)`
     pool.query(sqlText, [request.body.user_name, request.body.account_name, request.body.budget_amount])
         .then(function (result) {
             console.log('added transaction', result);
